@@ -19,7 +19,7 @@ public class clubs {
     private String clubname;
     private String department;
     private String description;
-   // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-mm-yyyy")
+   // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date interviewdate;
 
 }
