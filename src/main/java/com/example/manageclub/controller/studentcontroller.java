@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/studentapi")
 @CrossOrigin
 public class studentcontroller {
 
@@ -25,7 +25,7 @@ public class studentcontroller {
     public ResponseEntity<?> savestudents(@RequestBody students student1){
         return new ResponseEntity<>(studentservice.savestudents(student1), HttpStatus.OK);
     }
-    @GetMapping("/students")
+    @GetMapping("/getstudents")
     public ResponseEntity<List<students>> getstudents(){
         return new ResponseEntity<>(studentservice.getstudents(),HttpStatus.OK);
     }

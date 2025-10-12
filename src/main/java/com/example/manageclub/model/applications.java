@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -19,8 +20,7 @@ public class applications {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String username;
-    private String password;
+    
     private String name;
     private String department;
     private String yearofstudy;
@@ -28,4 +28,13 @@ public class applications {
     private String email_id;
     private String clubname;
     private Date interviewdate;
+
+    public applications(students student1, String clubname){
+        this.name=student1.getName();
+        this.department=student1.getDepartment();
+        this.yearofstudy= student1.getYearofstudy();
+        this.email_id= student1.getEmail_id();
+        this.phone_number=student1.getPhone_number();
+        this.clubname = clubname;
+    }
 }

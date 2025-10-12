@@ -1,8 +1,5 @@
 package com.example.manageclub.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +20,9 @@ public class students {
     private String yearofstudy;
     private Long phone_number;
     private String email_id;
+
+    @Column(unique = true)
+    private String username;
+    private String password;
+    private String role;
 }
