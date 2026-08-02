@@ -4,8 +4,10 @@ import com.example.manageclub.service.myuserdetailsservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.AuthorizeHttpRequestsDsl;
@@ -14,11 +16,16 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class config {
 
+    @Autowired
     public myuserdetailsservice myuserdetailsservice;
+
+    @Autowired
+    public JWTauthfilter jwtauthfilter;
 
 
     @Autowired
@@ -44,8 +51,10 @@ public class config {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(crsf->crsf.disable());
         http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
-        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/studentapi/registration")
+                .permitAll().anyRequest().authenticated());
+        http.authenticationProvider(authenticationProvider());
+        http.addFilterBefore(jwtauthfilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
     }

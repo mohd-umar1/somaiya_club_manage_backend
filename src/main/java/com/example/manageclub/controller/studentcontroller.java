@@ -5,6 +5,7 @@ import com.example.manageclub.service.studentservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class studentcontroller {
         return new ResponseEntity<>(studentservice.savestudents(student1), HttpStatus.OK);
     }
     @GetMapping("/getstudents")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<students>> getstudents(){
         return new ResponseEntity<>(studentservice.getstudents(),HttpStatus.OK);
     }

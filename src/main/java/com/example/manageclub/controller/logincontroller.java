@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,9 +29,12 @@ public class logincontroller {
 
     @PostMapping("/login")
     public String loginrequset(@RequestBody login login1){
+
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(login1.username, login1.password);
         Authentication authentication = authenticationManager.authenticate(token);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         mystudentdetails studentdetials = (mystudentdetails) authentication.getPrincipal();
 
